@@ -267,7 +267,7 @@
     const list = (window.KARELER && window.KARELER[obj.id]) || varsayilanKareler(obj.id);
     if (!list || !list.length) return;
     const stack = document.createElement("div"); stack.className = "hb-stack";
-    const frames = list.map(f => { const im = new Image(); im.decoding = "async"; im.draggable = false; im.alt = ""; im.className = "hb-frame"; im.src = IMG_DIR + f.dosya; stack.appendChild(im); return { ay: f.ay, el: im, o: -1 }; });
+    const frames = list.map(f => { const im = new Image(); im.decoding = "async"; im.draggable = false; im.alt = ""; im.className = "hb-frame"; im.src = f.dosya.startsWith("data:") ? f.dosya : IMG_DIR + f.dosya; stack.appendChild(im); return { ay: f.ay, el: im, o: -1 }; });
     Promise.all(frames.map(f => new Promise(r => { f.el.onload = () => r(true); f.el.onerror = () => r(false); }))).then(ok => {
       if (!ok.every(Boolean)) return; // eksik kare varsa SVG'de kal
       frames.sort((a, b) => a.ay - b.ay);

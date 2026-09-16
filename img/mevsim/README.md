@@ -12,6 +12,20 @@ illüstrasyondan fotoğraf moduna geçirir. Eksik kare varsa SVG illüstrasyon k
 | Ortanca  | `ortanca-kis.png`  | `ortanca-ilkbahar.png`  | `ortanca-yaz.png`  | `ortanca-sonbahar.png`  |
 | Kızılcık | `kizilcik-kis.png` | `kizilcik-ilkbahar.png` | `kizilcik-yaz.png` | `kizilcik-sonbahar.png` |
 
+## Fonlu görsel gönderdiyseniz (JPEG / beyaz ya da krem fon)
+
+Şeffaflaştırmayı depodaki araç yapar; siz yalnızca dosyayı doğru adla bu klasöre koyun:
+
+```bash
+node scripts/kare-hazirla.js img/mevsim/erguvan-kis.jpeg img/mevsim/erguvan-ilkbahar.jpeg \
+     img/mevsim/erguvan-yaz.jpeg img/mevsim/erguvan-sonbahar.jpeg --kaynak
+```
+
+Araç krem kâğıdı, dış beyaz fonu, kâğıt kenarı gölgesini ve kâğıt dokusu kırıntılarını siler; pembe/beyaz
+taç yaprakları korur, görseli kırpıp 1400 px yüksekliğe ölçekler ve `.png` yazar. `--kaynak` orijinali
+`img/mevsim/kaynak/` altına taşır. Gereksinim: `npm i -g playwright` (Chromium ile). Badem kareleri bu
+araçla üretildi.
+
 ## Teknik şartlar
 
 - **Şeffaf arka planlı PNG.** Model düz beyaz/krem fonda üretiyorsa arka planı kaldırın (remove.bg,
