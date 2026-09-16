@@ -8,6 +8,39 @@
  */
 window.PLANTS = [
   {
+    id: "badem", ad: "Badem", latince: "Prunus dulcis", aile: "Rosaceae", koken: "Orta Asya, Anadolu",
+    kategori: "agac", etiketler: ["ağaç", "erken çiçekli", "meyveli", "arı dostu"],
+    isik: 3, su: 1, nem: 1, sicaklik: "-5–35 °C", zorluk: "orta", toksik: false, boy: "4–8 m",
+    form: "tree", yaprak: "#5f9a4e", yaprak2: "#d9b04a", cicek: "#f3c9d6",
+    aciklama: "Kış bitmeden, daha yapraklar çıkmadan çıplak dallarda açan pembe-beyaz çiçekleriyle Anadolu'da baharın ilk habercisi. Yazın kadifemsi yeşil meyveleri olgunlaşır, sonbaharda yapraklar sarıya döner.",
+    bakim: ["Derin, süzek ve kireçli toprakları sever; su tutan topraktan kaçının.", "Tam güneş ve geç donlardan korunaklı bir konum seçin.", "Yerleştikten sonra kuraklığa dayanır; meyve tutumu için haziranda birkaç derin sulama yeterli.", "Kış sonunda seyreltme budaması yapın; çiçek tomurcukları geçen yılın dallarındadır."],
+    ilginc: "Badem, gerçekte bir meyve değil şeftali ve kayısının akrabası olan bir sert çekirdekli meyvenin tohumudur; Datça bademi coğrafi işaretlidir.",
+    cogaltma: "Aşı (acı badem anacı üzerine) veya tohum",
+    mevsim: { kis: "Çıplak, kızıl kahve dallar", ilkbahar: "Şubat sonu–mart: pembe-beyaz çiçek", yaz: "Dar, parlak yapraklar ve tüylü yeşil meyve", sonbahar: "Sarı yapraklar, dökülme" }
+  },
+  {
+    id: "erguvan", ad: "Erguvan", latince: "Cercis siliquastrum", aile: "Fabaceae", koken: "Doğu Akdeniz, Anadolu",
+    kategori: "agac", etiketler: ["ağaç", "çiçekli", "İstanbul", "arı dostu"],
+    isik: 3, su: 1, nem: 1, sicaklik: "-10–35 °C", zorluk: "kolay", toksik: false, boy: "4–10 m",
+    form: "tree", yaprak: "#4f9450", yaprak2: "#e2c04a", cicek: "#d6479a",
+    aciklama: "Nisan-mayısta yaprak açmadan gövde ve dallarını mor-pembe çiçeklerle kaplayan Boğaziçi'nin simge ağacı. Kalp biçimli yaprakları yazı, kahverengi baklaları kışı süsler.",
+    bakim: ["Tam güneş; fakir ve kireçli toprakta bile iyi gelişir.", "Kazık köklüdür, yerini değiştirmeyi sevmez; küçükken dikin.", "Yerleştikten sonra sulama gerektirmez.", "Budamayı çiçekten hemen sonra, en az düzeyde yapın."],
+    ilginc: "Çiçekler doğrudan yaşlı gövde üzerinde açar (kauliflori); halk arasında Yahuda ağacı olarak da bilinir ve İstanbul'da her yıl 'erguvan zamanı' kutlanır.",
+    cogaltma: "Tohum (kabuğu çizilerek) veya yaz çeliği",
+    mevsim: { kis: "Zikzak dallar ve sarkan kuru baklalar", ilkbahar: "Nisan: gövdeye kadar mor-pembe çiçek", yaz: "Kalp biçimli iri yapraklar, yeşil baklalar", sonbahar: "Sarı yapraklar, kahverengi baklalar" }
+  },
+  {
+    id: "kizilcik", ad: "Kızılcık", latince: "Cornus mas", aile: "Cornaceae", koken: "Anadolu, Kafkasya, Güney Avrupa",
+    kategori: "agac", etiketler: ["çalı", "erken çiçekli", "meyveli", "arı dostu"],
+    isik: 2, su: 2, nem: 2, sicaklik: "-20–32 °C", zorluk: "kolay", toksik: false, boy: "3–6 m",
+    form: "tree", yaprak: "#4b8f47", yaprak2: "#a4382f", cicek: "#e6c530",
+    aciklama: "Şubatta, kar erimeden çıplak dallarda açan minik sarı çiçek şemsiyeleriyle yılın ilk baharını yaşatır. Eylülde parlak kırmızı, ekşi meyveleri; ekimde kızıl-mor yaprakları gelir.",
+    bakim: ["Yarı gölgeden tam güneşe geniş toleranslıdır.", "İlk yıllarda düzenli sulayın, sonra kuraklığa dayanır.", "Neredeyse budama istemez; çalı ya da küçük ağaç formunda bırakılabilir.", "Meyve için farklı bir bireyle tozlaşma verimi artırır."],
+    ilginc: "Odunu o kadar serttir ki suda batar; antik çağda mızrak sapı yapılırdı. 'Kızılcık şerbeti' Osmanlı mutfağının klasiğidir.",
+    cogaltma: "Tohum (2 yıl çimlenme) veya aşı",
+    mevsim: { kis: "Şubat: çıplak dalda sarı çiçek şemsiyeleri", ilkbahar: "Karşılıklı dizilmiş oval yapraklar", yaz: "Koyu yeşil yapraklar, yeşilden kızaran meyve", sonbahar: "Kırmızı meyveler ve kızıl-mor yapraklar" }
+  },
+  {
     id: "monstera", ad: "Monstera", latince: "Monstera deliciosa", aile: "Araceae", koken: "Orta Amerika",
     kategori: "ic-mekan", etiketler: ["yeşil yapraklı", "büyük yapraklı", "tropik"],
     isik: 2, su: 2, nem: 2, sicaklik: "18–27 °C", zorluk: "kolay", toksik: true, boy: "1–3 m",
@@ -305,7 +338,8 @@ window.PLANTS = [
     aciklama: "Top gibi çiçek kümelerinin rengi toprağın asitliğine göre maviden pembeye değişir. Adındaki 'hydra' su ihtiyacını özetler.",
     bakim: ["Bol ve düzenli sulayın; sıcakta sabah-akşam.", "Sabah güneşi, öğleden sonra gölge.", "Asidik toprak mavi, alkali toprak pembe çiçek verir.", "Geçen yılın dallarından çiçek açar; sert budamayın."],
     ilginc: "Toprağa alüminyum sülfat eklemek çiçekleri maviye, kireç eklemek pembeye çevirir.",
-    cogaltma: "Yumuşak çelik"
+    cogaltma: "Yumuşak çelik",
+    mevsim: { kis: "Çıplak sürgünler ve kurumuş çiçek başları", ilkbahar: "Yeşil tomurcuklar, iri dişli yapraklar", yaz: "Haziran–ağustos: mavi top çiçekler", sonbahar: "Solgun pembe-yeşile dönen başlar, sararan yapraklar" }
   },
   {
     id: "begonvil", ad: "Begonvil", latince: "Bougainvillea glabra", aile: "Nyctaginaceae", koken: "Brezilya",

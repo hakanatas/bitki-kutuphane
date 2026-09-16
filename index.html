@@ -10,32 +10,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/seasons.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#" aria-label="Bitki Kütüphanesi ana sayfa">
-        <span class="brand-name">Bitki Kütüphanesi</span>
-        <span class="brand-sub">Herbarium · TR</span>
-      </a>
-      <label class="search">
-        <span class="sr-only">Bitki ara</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Bitki, Latince ad, familya ya da etiket ara…" autocomplete="off">
-        <kbd>/</kbd>
-      </label>
-      <div class="actions">
+  <section class="hb" id="herbaryum" aria-label="Dört Mevsim Herbaryumu">
+    <div class="hb-top">
+      <div class="hb-brand"><b>Dört Mevsim</b><span>Herbaryum · Bitki Kütüphanesi</span></div>
+      <div class="hb-right">
+        <div class="hb-name" id="hbName" aria-live="polite"></div>
+        <a class="hb-link" href="#katalog">Katalog</a>
         <button id="themeBtn" class="icon-btn" type="button" title="Açık / koyu tema" aria-label="Temayı değiştir">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.4A6 6 0 0 1 12 3z"/></svg>
         </button>
       </div>
     </div>
-  </header>
 
-  <section class="intro">
+    <div class="hb-plants" id="hbPlants"></div>
+
+    <div class="hb-foot">
+      <div class="hb-season">
+        <span class="hb-word" id="hbSeason" aria-live="polite">İlkbahar</span>
+        <button id="hbPlay" class="hb-play" type="button" aria-pressed="false" title="Yılı oynat" aria-label="Yılı oynat / durdur">
+          <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        </button>
+      </div>
+      <div class="hb-slider-wrap">
+        <div class="hb-slider" id="hbSlider" role="slider" tabindex="0" aria-label="Yılın zamanı" aria-valuemin="0" aria-valuemax="100" aria-valuenow="21">
+          <div class="hb-track"><div class="hb-fill" id="hbFill"></div></div>
+          <div class="hb-knob" id="hbKnob"><span class="hb-month" id="hbMonth">MART</span><span class="hb-arrows" aria-hidden="true">‹ ›</span></div>
+        </div>
+        <div class="hb-ticks">
+          <button class="hb-tick" type="button"><i></i><span>Kış</span></button>
+          <button class="hb-tick" type="button"><i></i><span>İlkbahar</span></button>
+          <button class="hb-tick" type="button"><i></i><span>Yaz</span></button>
+          <button class="hb-tick" type="button"><i></i><span>Sonbahar</span></button>
+          <button class="hb-tick" type="button"><i></i><span>Kış</span></button>
+        </div>
+      </div>
+      <div class="hb-hint">Sürükle · <kbd>←</kbd> <kbd>→</kbd> · bitkiye tıkla</div>
+    </div>
+  </section>
+
+  <section class="katalog-head" id="katalog">
     <div>
-      <h1>Evinizdeki her yaprağın <em>bir hikâyesi</em> var.</h1>
-      <p>İç mekân bitkilerinden balkon aromatiklerine, sukulentlerden meyve ağaçlarına: ışık, su, nem ve zorluk seviyeleriyle bakım notlarını tek yerde toplayan Türkçe bitki ansiklopedisi.</p>
+      <h2>Evinizdeki her yaprağın <em>bir hikâyesi</em> var.</h2>
+      <p>İç mekân bitkilerinden balkon aromatiklerine, sukulentlerden meyve ağaçlarına: ışık, su, nem ve zorluk seviyeleriyle bakım notları.</p>
     </div>
     <div class="stats">
       <span><b id="total">0</b>bitki</span>
@@ -44,6 +64,14 @@
       <span><b id="favCount">0</b>koleksiyon</span>
     </div>
   </section>
+  <div class="katalog-tools">
+    <label class="search">
+      <span class="sr-only">Bitki ara</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Bitki, Latince ad, familya ya da etiket ara…" autocomplete="off">
+      <kbd>/</kbd>
+    </label>
+  </div>
 
   <main class="layout">
     <aside class="filters" aria-label="Filtreler">
@@ -104,10 +132,12 @@
     </div>
   </dialog>
 
-  <footer><div><span>Bitki Kütüphanesi · Bakım değerleri genel rehber niteliğindedir; iklim ve konuma göre uyarlayın.</span><span>Kısayollar: <kbd>/</kbd> ara · <kbd>←</kbd> <kbd>→</kbd> gez · <kbd>Esc</kbd> kapat</span></div></footer>
+  <footer><div><span>Bitki Kütüphanesi · Mevsim geçişleri temsilîdir; bakım değerleri genel rehber niteliğindedir; iklim ve konuma göre uyarlayın.</span><span>Kısayollar: <kbd>/</kbd> ara · <kbd>←</kbd> <kbd>→</kbd> gez · <kbd>Esc</kbd> kapat</span></div></footer>
 
   <script src="js/plants.js"></script>
   <script src="js/illustrate.js"></script>
+  <script src="js/detail.js"></script>
+  <script src="js/seasons.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
