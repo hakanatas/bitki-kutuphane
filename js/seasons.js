@@ -145,7 +145,7 @@
   function buildPlant(id) {
     const sp = SPECIES[id], R = rng(id + "-2026");
     const sk = sp.skeleton.type === "canes" ? canes(R, sp.skeleton) : tree(R, sp.skeleton);
-    const svg = el("svg", { viewBox: "0 0 300 420", class: "hb-svg", role: "img" });
+    const svg = el("svg", { viewBox: "0 0 300 420", class: "hb-svg", role: "img", preserveAspectRatio: "xMidYMax meet" });
     svg.setAttribute("aria-label", PLANTS.find(p => p.id === id).ad);
     const defs = el("defs", {});
     defs.innerHTML = `<linearGradient id="fade-${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0.82" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><mask id="mask-${id}"><rect width="300" height="420" fill="url(#fade-${id})"/></mask>`;
@@ -241,7 +241,39 @@
         fr.shape.setAttribute("fill", rgb(c)); fr.shape.setAttribute("stroke", rgb(mixc(c, [0, 0, 0], 0.35)));
       }
     }
-    return { id, svg, update };
+    const obj = { id, svg, update: (m) => { obj.lastM = m; if (obj.frames) blendFrames(obj.frames, m); else update(m); }, frames: null, lastM: 0 };
+    return obj;
+  }
+
+  // ---------- fotoğraf / illüstrasyon kareleri (img/mevsim/<id>-<mevsim>.png) ----------
+  const IMG_DIR = "img/mevsim/";
+  const varsayilanKareler = (id) => [
+    { ay: 0.5, dosya: `${id}-kis.png` }, { ay: 3.5, dosya: `${id}-ilkbahar.png` },
+    { ay: 6.5, dosya: `${id}-yaz.png` }, { ay: 9.5, dosya: `${id}-sonbahar.png` }
+  ];
+  function blendFrames(frames, m) {
+    const n = frames.length;
+    for (let i = 0; i < n; i++) {
+      const a = frames[i].ay; let b = frames[(i + 1) % n].ay; if (b <= a) b += 12;
+      let x = m; if (x < a) x += 12;
+      if (x >= a && x < b) {
+        const e = ss((x - a) / (b - a), 0.28, 0.72); // her kare bir süre saf kalsın, geçiş ortada olsun
+        frames.forEach((f, k) => { const o = k === i ? 1 - e : k === (i + 1) % n ? e : 0; if (f.o !== o) { f.el.style.opacity = o.toFixed(3); f.o = o; } });
+        return;
+      }
+    }
+  }
+  function attachFrames(visual, fig, obj) {
+    const list = (window.KARELER && window.KARELER[obj.id]) || varsayilanKareler(obj.id);
+    if (!list || !list.length) return;
+    const stack = document.createElement("div"); stack.className = "hb-stack";
+    const frames = list.map(f => { const im = new Image(); im.decoding = "async"; im.draggable = false; im.alt = ""; im.className = "hb-frame"; im.src = IMG_DIR + f.dosya; stack.appendChild(im); return { ay: f.ay, el: im, o: -1 }; });
+    Promise.all(frames.map(f => new Promise(r => { f.el.onload = () => r(true); f.el.onerror = () => r(false); }))).then(ok => {
+      if (!ok.every(Boolean)) return; // eksik kare varsa SVG'de kal
+      frames.sort((a, b) => a.ay - b.ay);
+      visual.appendChild(stack); fig.classList.add("has-img");
+      obj.frames = frames; obj.update(obj.lastM);
+    });
   }
 
   // ---------- sahne ----------
@@ -253,7 +285,9 @@
     fig.className = "hb-plant"; fig.dataset.id = id; fig.tabIndex = 0;
     fig.setAttribute("role", "button"); fig.setAttribute("aria-label", `${p.ad} detaylarını aç`);
     const obj = buildPlant(id);
-    fig.appendChild(obj.svg);
+    const visual = document.createElement("div"); visual.className = "hb-visual";
+    visual.appendChild(obj.svg); fig.appendChild(visual);
+    attachFrames(visual, fig, obj);
     const cap = document.createElement("figcaption");
     cap.innerHTML = `<span class="hb-cap">${p.ad}</span><span class="hb-cap-latin">${p.latince}</span>`;
     fig.appendChild(cap);

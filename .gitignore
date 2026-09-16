@@ -1,3 +1,6 @@
 dist/
 node_modules/
 .DS_Store
+# Mevsim karelerini depoya eklemek isterseniz aşağıdaki satırı silin
+# img/mevsim/*.png
+!img/mevsim/README.md

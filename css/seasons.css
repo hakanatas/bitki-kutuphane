@@ -33,7 +33,12 @@
   transition: transform .35s ease;
 }
 .hb-plant:hover { transform: translateY(-4px); }
+.hb-visual { position: relative; width: 100%; height: 100%; min-height: 0; max-height: min(64svh, 640px); display: grid; align-items: end; justify-items: center; }
 .hb-svg { height: 100%; width: 100%; max-height: min(64svh, 640px); overflow: visible; }
+.hb-stack { position: absolute; inset: 0; }
+.hb-frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; opacity: 0; user-select: none; -webkit-user-drag: none;
+  -webkit-mask-image: linear-gradient(#000 82%, transparent 100%); mask-image: linear-gradient(#000 82%, transparent 100%); }
+.hb-plant.has-img .hb-svg { visibility: hidden; }
 .hb-plant figcaption { display: grid; justify-items: center; gap: 2px; text-align: center; }
 .hb-cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-2); }
 .hb-cap-latin { font-family: var(--font-display); font-style: italic; font-size: 13px; color: var(--muted); opacity: 0; transition: opacity .25s; }
@@ -97,7 +102,7 @@
   .hb-name { display: none; }
   .hb-brand span { display: none; }
   .hb-plants { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; padding: 6px 0 0; }
-  .hb-svg { max-height: 38svh; }
+  .hb-svg, .hb-visual { max-height: 38svh; }
   .hb-plant { gap: 8px; }
   .hb-foot { grid-template-columns: 1fr; gap: 6px; }
   .hb-word { font-size: 40px; }
