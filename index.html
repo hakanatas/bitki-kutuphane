@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bitki Kütüphanesi</title>
+  <meta name="description" content="Ev, balkon ve bahçe bitkileri için Türkçe görsel ansiklopedi: ışık, su, nem, zorluk ve bakım notları.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#" aria-label="Bitki Kütüphanesi ana sayfa">
+        <span class="brand-name">Bitki Kütüphanesi</span>
+        <span class="brand-sub">Herbarium · TR</span>
+      </a>
+      <label class="search">
+        <span class="sr-only">Bitki ara</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Bitki, Latince ad, familya ya da etiket ara…" autocomplete="off">
+        <kbd>/</kbd>
+      </label>
+      <div class="actions">
+        <button id="themeBtn" class="icon-btn" type="button" title="Açık / koyu tema" aria-label="Temayı değiştir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.4A6 6 0 0 1 12 3z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="intro">
+    <div>
+      <h1>Evinizdeki her yaprağın <em>bir hikâyesi</em> var.</h1>
+      <p>İç mekân bitkilerinden balkon aromatiklerine, sukulentlerden meyve ağaçlarına: ışık, su, nem ve zorluk seviyeleriyle bakım notlarını tek yerde toplayan Türkçe bitki ansiklopedisi.</p>
+    </div>
+    <div class="stats">
+      <span><b id="total">0</b>bitki</span>
+      <span><b id="famCount">0</b>familya</span>
+      <span><b id="safeCount">0</b>evcil dostu</span>
+      <span><b id="favCount">0</b>koleksiyon</span>
+    </div>
+  </section>
+
+  <main class="layout">
+    <aside class="filters" aria-label="Filtreler">
+      <div class="fgroup">
+        <div class="fgroup-title"><span class="eyebrow">Kategori</span></div>
+        <div class="chips" id="fKategori"></div>
+      </div>
+      <div class="fgroup">
+        <div class="fgroup-title"><span class="eyebrow">Işık</span></div>
+        <div class="chips" id="fIsik"></div>
+      </div>
+      <div class="fgroup">
+        <div class="fgroup-title"><span class="eyebrow">Su ihtiyacı</span></div>
+        <div class="chips" id="fSu"></div>
+      </div>
+      <div class="fgroup">
+        <div class="fgroup-title"><span class="eyebrow">Zorluk</span></div>
+        <div class="chips" id="fZorluk"></div>
+      </div>
+      <div class="fgroup filters-extra">
+        <label class="switch"><input id="fEvcil" type="checkbox"> Yalnızca evcil dostu</label>
+        <label class="switch"><input id="fFav" type="checkbox"> Koleksiyonum</label>
+        <label><span class="sr-only">Sıralama</span>
+          <select id="fSort" class="select">
+            <option value="ad">Ada göre (A–Z)</option>
+            <option value="latince">Latince ada göre</option>
+            <option value="zorluk">Kolaydan zora</option>
+            <option value="su">Az sudan çok suya</option>
+          </select>
+        </label>
+      </div>
+    </aside>
+
+    <section aria-label="Bitkiler">
+      <div class="results-bar">
+        <span class="count" id="count"></span>
+        <div class="active-chips" id="active"></div>
+        <button id="clearBtn" class="link-btn" type="button" hidden>Filtreleri temizle</button>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <dialog id="detail" class="detail" aria-label="Bitki detayı">
+    <div class="detail-panel">
+      <div class="detail-top">
+        <div class="detail-nav">
+          <button id="prevBtn" class="icon-btn" type="button" aria-label="Önceki bitki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button id="nextBtn" class="icon-btn" type="button" aria-label="Sonraki bitki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+        <div class="detail-nav">
+          <button id="detailFav" class="icon-btn fav" type="button" style="position:static" aria-pressed="false" aria-label="Koleksiyona ekle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10z"/></svg></button>
+          <button id="shareBtn" class="icon-btn" type="button" title="Bağlantıyı kopyala" aria-label="Bağlantıyı kopyala"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg></button>
+          <button id="closeBtn" class="icon-btn" type="button" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+      </div>
+      <div class="detail-content" id="detailBody"></div>
+    </div>
+  </dialog>
+
+  <footer><div><span>Bitki Kütüphanesi · Bakım değerleri genel rehber niteliğindedir; iklim ve konuma göre uyarlayın.</span><span>Kısayollar: <kbd>/</kbd> ara · <kbd>←</kbd> <kbd>→</kbd> gez · <kbd>Esc</kbd> kapat</span></div></footer>
+
+  <script src="js/plants.js"></script>
+  <script src="js/illustrate.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
